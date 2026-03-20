@@ -108,12 +108,17 @@ Form Pemesanan Raket Nyamuk
 <div class="section">
 
 <div class="section-title">
-Produk yang dipesan
+Pilih warna & jumlah
 </div>
 
 <div class="product">
-<span>Raket Nyamuk</span>
-<input type="number" id="raket" value="0" min="0">
+<span>Raket Nyamuk Hitam</span>
+<input type="number" id="hitam" value="0" min="0">
+</div>
+
+<div class="product">
+<span>Raket Nyamuk Putih</span>
+<input type="number" id="putih" value="0" min="0">
 </div>
 
 </div>
@@ -162,13 +167,14 @@ document.getElementById("formPesanan").addEventListener("submit", function(e){
 
 e.preventDefault();
 
-var raket=parseInt(document.getElementById("raket").value) || 0;
+var hitam=parseInt(document.getElementById("hitam").value) || 0;
+var putih=parseInt(document.getElementById("putih").value) || 0;
 
 /* CEK PRODUK */
 
-if(raket==0){
-alert("Silakan pilih jumlah raket nyamuk yang ingin dipesan 😊");
-document.getElementById("raket").focus();
+if(hitam==0 && putih==0){
+alert("Silakan pilih jumlah raket yang ingin dipesan 😊");
+document.getElementById("hitam").focus();
 return;
 }
 
@@ -210,8 +216,19 @@ var harga=105000;
 
 var alamat=jalan+" RT."+rt+" No."+rumah;
 
-var totalHarga=raket*harga;
+var totalBarang=hitam+putih;
+var totalHarga=totalBarang*harga;
 var formatHarga=totalHarga.toLocaleString("id-ID");
+
+var detail="";
+
+if(hitam>0){
+detail+="Raket Nyamuk Hitam × "+hitam+"%0A";
+}
+
+if(putih>0){
+detail+="Raket Nyamuk Putih × "+putih+"%0A";
+}
 
 var pesan=
 "Halo kak, saya ingin melakukan pemesanan.%0A%0A"+
@@ -224,7 +241,7 @@ alamat+"%0A"+
 kel+", "+kec+", "+kota+", "+prov+"%0A%0A"+
 
 "*Detail:*%0A"+
-"Raket Nyamuk × "+raket+"%0A%0A"+
+detail+"%0A"+
 
 "*Pembayaran:* "+pembayaran+"%0A"+
 "Ongkir: _*Rp0*_%0A"+
